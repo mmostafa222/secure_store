@@ -13,7 +13,7 @@ import 'package:secure_store/core/utils/textstyle.dart';
 import 'package:secure_store/feature/screens/bottomNavBar.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
-import 'package:secure_store/feature/presentation/model/view/categoryList.dart';
+import 'package:secure_store/feature/presentation/model/view/view_model/categoryList.dart';
 import 'package:secure_store/feature/presentation/model/view/view_model/Product_model.dart';
 import 'package:secure_store/feature/screens/profile/userProfile.dart';
 import 'package:secure_store/feature/screens/profile/userProfile.dart';
@@ -89,7 +89,7 @@ class _addProductViewState extends State<addProductView> {
           Navigator.pop(context);
           showErrorDialog(context, Text('error'));
         } else {
-          showLoadingDialog(context);
+          CircularProgressIndicator();
         }
       },
       child: Scaffold(
@@ -251,7 +251,7 @@ class _addProductViewState extends State<addProductView> {
                           final user = FirebaseAuth.instance.currentUser;
                           final authCubit =context.read<AuthCubit>();
                           if (_formKey.currentState!.validate()) {
-                            authCubit.updateProductData(
+                            authCubit. updateProductData (
                                 ProductModel(
                                     productId: _Title.text,
                                     productTitle: _Title.text,
@@ -263,7 +263,7 @@ class _addProductViewState extends State<addProductView> {
                           
                                     userId: user!.uid,
                                     userName: user.displayName??'None', 
-                                    ));
+                                    )) ;
                           }
                         },
                         child: Text('Done', style: getbodyStyle()))

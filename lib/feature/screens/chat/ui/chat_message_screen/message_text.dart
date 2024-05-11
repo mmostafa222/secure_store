@@ -12,26 +12,19 @@ class MessageText extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: Colors.amber,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           
-                Text(
-                 user!.displayName??'',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold),
-                )
              
-                ,
+                
           Text(
             message.text,
             style: TextStyle(
-                color: message.isSender ? Colors.white : Colors.black),
+                color: message.isSender ? Colors.white : Colors.white),
           )
         ],
       ),

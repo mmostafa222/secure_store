@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:secure_store/core/utils/AppColors.dart';
 
 import 'chats_body.dart';
 
@@ -20,7 +21,7 @@ class _ChatListState extends State<ChatList> {
   }
 
   AppBar buildAppBar() {
-    return AppBar(
+    return AppBar(backgroundColor: Color.fromARGB(255, 255, 152, 7),
       centerTitle: true,
       title: const Text(
         'Chats',

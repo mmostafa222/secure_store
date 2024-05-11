@@ -37,7 +37,7 @@ class _RegisterViewState extends State<RegisterView> {
           Navigator.pop(context);
           
         } else {
-          showLoadingDialog(context);
+          showLoadingDialogo(context);
         }
       },
       child: Scaffold(backgroundColor:appcolors.whitecolor,

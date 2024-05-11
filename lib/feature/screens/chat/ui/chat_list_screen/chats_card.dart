@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:secure_store/feature/chat/model/chats.dart';
+import 'package:secure_store/core/utils/AppColors.dart';
 
 class ChatsCard extends StatelessWidget {
   const ChatsCard({ required this.press, super.key, this.reciverName, required chat});
@@ -34,7 +34,7 @@ class ChatsCard extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
-                      color: Colors.black),
+                      color: appcolors.primerycolor),
                 ),
                
               ],

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
+import 'package:secure_store/feature/screens/profile/userProfile.dart';
 
 class ChatInputField extends StatefulWidget {
   const ChatInputField({super.key, required this.reciverID});
@@ -24,7 +25,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
   String? imagepath;
   File? file;
   String? profileUrl;
-   final FirebaseStorage _storage =
+  final FirebaseStorage _storage =
       FirebaseStorage.instanceFor(bucket: 'gs://store-12a8f.appspot.com');
 
   // method to upload and get link of image
@@ -37,11 +38,11 @@ class _ChatInputFieldState extends State<ChatInputField> {
     await ref.putFile(image, metadata);
     // 5) get image url
     String url = await ref.getDownloadURL();
+
     return url;
   }
 
   Future<void> _pickImage() async {
-    _getProduct();
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -63,41 +64,35 @@ class _ChatInputFieldState extends State<ChatInputField> {
     });
   }
 
-  // picking_image() async {
-  //   XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   print(file!.path);
-  //   final message = ChatMessage(
-  //       messageType: ChatMessageType.image,
-  //       messageStatus: MessageStatus.viewed,
-  //       isSender: true,
-  //       imageUrl: file.path);
+  Future<void> sendMessage() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final message = messageController.text;
+    String? image;
+    setState(() {
+      image = profileUrl;
+    });
+    print(message);
+    final messageDoc = {
+      'message': message,
+      'image': image,
+      'id': user!.uid,
+      'sender': user.displayName,
+      'reciver': widget.reciverID,
+      'time': DateTime.now(),
+      'type':image != null?0:1,
+    };
+    final doc = await FirebaseFirestore.instance
+        .collection('messages')
+        .add(messageDoc)
+        .whenComplete(() => messageController.clear());
 
-  //   final storage = FirebaseStorage.instance;
-  //   final firestore = FirebaseFirestore.instance;
-  //   final user = FirebaseAuth.instance.currentUser;
-  //   final ref = storage
-  //       .ref()
-  //       .child('image')
-  //       .child(DateTime.now().toIso8601String() + file.name);
-  //       image_chat = File(, fileName)
-  //   await ref.putFile();
-  //   final url = await ref.getDownloadURL();
-  //   print(url);
+  }
 
-  //   Map<String, dynamic> document = {
-  //     'image': url,
-  //     'senderId': user?.uid,
-  //     'senderName': user?.displayName,
-  //     'senderImage': user?.photoURL,
-  //     'type': 1,
-  //     'time': DateTime.now(),
-  //   };
-
-  //   firestore.collection('message').add(document);
-  //   setState(() {
-  //     messageController.clear();
-  //   });
-  // }
+  String getChatRoomId(String uid1, String uid2) {
+    List<String> uids = [uid1, uid2];
+    uids.sort();
+    return uids.join('_');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,10 +114,10 @@ class _ChatInputFieldState extends State<ChatInputField> {
             Expanded(
               child: Row(
                 children: [
-                 
-                  
                   Expanded(
-                    child: TextField(style: getTitleStyle(color: appcolors.whitecolor,fontSize: 12),
+                    child: TextField(
+                      style: getTitleStyle(
+                          color: appcolors.whitecolor, fontSize: 12),
                       controller: messageController,
                       decoration: const InputDecoration(
                         hintText: 'type message ....',
@@ -132,40 +127,24 @@ class _ChatInputFieldState extends State<ChatInputField> {
                   ),
                   messageController.text.isEmpty
                       ? IconButton(
-                          onPressed:   () async {
-                          await _pickImage();
-                        },
+                          onPressed: () async {
+                            await _pickImage();
+                            await sendMessage();
+                          },
                           icon: Icon(
                             Icons.camera_alt_outlined,
-                            color: appcolors.primerycolor,
+                             color: appcolors.primerycolor,
                           ),
                         )
                       : const SizedBox(),
-                
-                    
-                       IconButton(
-                          onPressed: () async {
-                            final user = FirebaseAuth.instance.currentUser;
-                            final message = messageController.text;
-                            print(message);
-                            final messageDoc = {
-                              'message': message,
-                              'id': user!.uid,
-                              'sender': user.displayName,
-                              'reciver':widget.reciverID,
-                              'time': DateTime.now(),
-                            };
-                            final doc = await FirebaseFirestore.instance
-                                .collection('messages')
-                                .add(messageDoc).whenComplete(() => messageController.clear());
-                            print(doc.path);
-                            print(doc.id);
-                          },
-                          icon: const Icon(
-                            Icons.send,
-                            color: Colors.black,
-                          ))
-                      
+                  IconButton(
+                      onPressed: () async {
+                        await sendMessage();
+                      },
+                      icon: const Icon(
+                        Icons.send,
+                        color: Colors.black,
+                      ))
                 ],
               ),
             ),
@@ -174,7 +153,4 @@ class _ChatInputFieldState extends State<ChatInputField> {
       ),
     );
   }
-}
-
-class _getProduct {
 }

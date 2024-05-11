@@ -10,17 +10,18 @@ import 'message_image.dart';
 import 'message_text.dart';
 
 class Message extends StatelessWidget {
-  const Message({required this.message, required this.index, super.key});
+  const Message({required this.message, required this.index, super.key, required this.image});
   final ChatMessage message;
+   final ChatMessage image;
   final int index;
   @override
   Widget build(BuildContext context) {
-    Widget messageContain(ChatMessage message, int index) {
+    Widget messageContain(ChatMessage message, int index, ChatMessage image) {
       switch (message.messageType) {
         case ChatMessageType.text:
           return MessageText(message: message, );
         case ChatMessageType.image:
-          return MessageImage(message: message, index: index);
+          return MessageImage(image: image, index: index);
         default:
           return const SizedBox();
       }
@@ -37,20 +38,10 @@ class Message extends StatelessWidget {
               : MainAxisAlignment.start,
           children: [
             if (!message.isSender) ...[
-               CircleAvatar(
-                                      backgroundColor: appcolors.whitecolor,
-                                      radius: 20,
-                                      backgroundImage: (imagePath != null)
-                                          ? FileImage(File(imagePath!))
-                                              as ImageProvider
-                                          : const AssetImage(
-                                              'assets/person.png',
-                                            )),
-              const SizedBox(
-                width: 10,
-              ),
+             
+            
             ],
-            messageContain(message, index),
+            messageContain(message, index,image),
           ],
         ),
       ),

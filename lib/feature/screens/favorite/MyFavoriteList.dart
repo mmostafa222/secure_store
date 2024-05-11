@@ -6,13 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secure_store/core/services/routing.dart';
 import 'package:secure_store/core/widget/noschdule.dart';
 import 'package:secure_store/core/widget/product_card.dart';
-import 'package:secure_store/feature/home/product_details.dart';
+import 'package:secure_store/feature/home/home/product_details.dart';
 
 import '../../presentation/data/cubit/auth_cubit.dart';
 
 class MyFavoriteList extends StatefulWidget {
   const MyFavoriteList({super.key, this.product});
-final product;
+  final product;
   @override
   _MyFavoriteListState createState() => _MyFavoriteListState();
 }
@@ -34,8 +34,6 @@ class _MyFavoriteListState extends State<MyFavoriteList> {
         .doc('productPrice')
         .delete();
   }
-
-  
 
   showAlertDialog(BuildContext context, String productID) {
     Widget cancelButton = TextButton(
@@ -70,7 +68,6 @@ class _MyFavoriteListState extends State<MyFavoriteList> {
       },
     );
   }
-  
 
   @override
   void initState() {
@@ -83,57 +80,53 @@ class _MyFavoriteListState extends State<MyFavoriteList> {
     final authCubit = BlocProvider.of<AuthCubit>(context);
     return SafeArea(
       child: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('Cart').orderBy('productPrice')
-          
-            
-             //.orderBy('date', descending: false)
-            .snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-           return snapshot.data?.size == 0
-            ?  const NoScheduledWidget()
-              :Scrollbar(
-                child: ListView.builder(
-                  itemCount: snapshot.data?.size,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot Cart = snapshot.data!.docs[index];
-                   
-                    return ProductCard(
-                              title: Cart['productTitle'],
-                              price: Cart['productPrice'],
-                              image: Cart['productImage'],
-                      onPressed: () {
-                        
-                        push(
-                            context,
-                            HomeDetails(
-                              title: Cart['productTitle'],
-                              price: Cart['productPrice'],
-                              description: Cart['productDescription'],
-                              image: Cart['productImage'], phone: '',
-                           
-                           
-                           userId: Cart['userId'],
-                                                    userName:
-                                                        Cart['userName'], ));
-                      },onRemovedPressed: ()async{
-                        await authCubit.removeProductFromCart(productId: Cart['productPrice']);
-                      },
-                    );
-                  },
-                ),
+          stream: FirebaseFirestore.instance
+              .collection('Cart')
+              .orderBy('productPrice')
+
+              //.orderBy('date', descending: false)
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
               );
-        }),);
-            
-      }
-    
-    
+            }
+            return snapshot.data?.size == 0
+                ? const NoScheduledWidget()
+                : Scrollbar(
+                    child: ListView.builder(
+                      itemCount: snapshot.data?.size,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot Cart = snapshot.data!.docs[index];
+
+                        return ProductCard(
+                          title: Cart['productTitle'],
+                          price: Cart['productPrice'],
+                          image: Cart['productImage'],
+                          onPressed: () {
+                            push(
+                                context,
+                                HomeDetails(
+                                  title: Cart['productTitle'],
+                                  price: Cart['productPrice'],
+                                  description: Cart['productDescription'],
+                                  image: Cart['productImage'],
+                                  phone: '',
+                                  userId: Cart['userId'],
+                                  userName: Cart['userName'],
+                                ));
+                          },
+                          onRemovedPressed: () async {
+                            await authCubit.removeProductFromCart(
+                                productId: Cart['productPrice']);
+                          },
+                        );
+                      },
+                    ),
+                  );
+          }),
+    );
   }
-
-
-
+}

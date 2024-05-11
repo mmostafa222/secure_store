@@ -50,3 +50,12 @@ class RemoveeCartDataErrorState extends AuthStates{
 
   RemoveeCartDataErrorState({required this.error});
 }
+
+//Remove product
+class RemoveProductDataLoadingState extends AuthStates{}
+class RemoveProductDataSuccesState extends AuthStates{}
+class RemoveeProductDataErrorState extends AuthStates{
+  final String error;
+
+  RemoveeProductDataErrorState({required this.error});
+}

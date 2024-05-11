@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
+import 'package:secure_store/feature/screens/chat/ui/chat_message_screen/chat_message_screen.dart';
 
 class HomeDetails extends StatefulWidget {
   const HomeDetails(
@@ -11,7 +12,9 @@ class HomeDetails extends StatefulWidget {
       required this.image,
       required this.price,
       required this.description,
-      required this.phone, required this.userName, required this.userId});
+      required this.phone,
+      required this.userName,
+      required this.userId});
   final String title;
   final String image;
   final String price;
@@ -29,6 +32,8 @@ class _HomeDetailsState extends State<HomeDetails> {
   User? user;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  get product => null;
 
   Future<void> _getUser() async {
     user = _auth.currentUser;
@@ -52,26 +57,7 @@ class _HomeDetailsState extends State<HomeDetails> {
               }),
           actions: [
             IconButton(
-                onPressed: () {
-                  // if (_formKey.currentState!.validate() && isSelected != -1) {
-                  //   createCart();
-                  //   showAlertDialog(
-                  //     context,
-                  //     title: 'Done !',
-                  //     ok: 'press to go to favorite',
-                  //     onPressed: () {
-                  //       Navigator.pop(context);
-                  //       Navigator.pushReplacement(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //           builder: (context) => const  favoriteView(),
-                  //         ),
-                  //       );
-                  //     },
-                  //   );
-                  // }
-                },
-                icon: const Icon(Icons.favorite_border))
+                onPressed: () {}, icon: const Icon(Icons.favorite_border))
           ]),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(
@@ -127,25 +113,35 @@ class _HomeDetailsState extends State<HomeDetails> {
           width: double.infinity,
           child: Row(
             children: [
-              CircleAvatar(
-                backgroundColor: appcolors.greycolor,
-                radius: 30,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Posted By',
                       style: TextStyle(color: Colors.white)),
-                  Text(
-                    widget.userName ,
-                    style: getTitleStyle(color: Colors.white),
+                  Row(
+                    children: [
+                      Text(
+                        widget.userName,
+                        style: getTitleStyle(color: Colors.white),
+                      ),
+                      Gap(100),
+                      // IconButton(
+                      //   onPressed: () {
+                      //     Navigator.push(context,
+                      //         MaterialPageRoute(builder: (context) {
+                      //       return ChatMessageScreen(
+                      //         reciverID: product['userId'],
+                      //         reciverName: product['userName'],
+                      //       );
+                      //     }));
+                      //   },
+                      //   icon: Icon(Icons.chat),
+                      //   color: Color.fromARGB(255, 248, 248, 246),
+                      //   iconSize: 40,
+                      // ),
+                    ],
                   ),
-                  const Text('See Profile',
-                      style: TextStyle(color: Colors.white)),
                 ],
               ),
             ],

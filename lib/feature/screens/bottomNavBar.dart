@@ -1,10 +1,10 @@
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:secure_store/feature/chat/ui/chat_list_screen/chat_list.dart';
-import 'package:secure_store/feature/home/home.dart';
+import 'package:secure_store/feature/home/home/home.dart';
+import 'package:secure_store/feature/screens/chat/ui/chat_list_screen/chat_list.dart';
+
 import 'package:secure_store/feature/screens/add_product/add_product.dart';
-import 'package:secure_store/feature/screens/chat/chat.dart';
 import 'package:secure_store/feature/screens/favorite/favorite.dart';
 import 'package:secure_store/feature/screens/profile/userProfile.dart';
 

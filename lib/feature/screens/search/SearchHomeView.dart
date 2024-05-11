@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
 import 'package:secure_store/core/widget/product_card.dart';
-import 'package:secure_store/feature/home/product_details.dart';
+import 'package:secure_store/feature/home/home/product_details.dart';
 class SearchHomeView extends StatefulWidget {
   final String searchKey;
   const SearchHomeView({Key? key, required this.searchKey}) : super(key: key);

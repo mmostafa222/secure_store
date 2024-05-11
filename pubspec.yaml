@@ -28,8 +28,10 @@ dependencies:
   shared_preferences: ^2.2.2
   svg_flutter: ^0.0.1
   uuid: ^4.2.2
+  fluttertoast: ^8.2.5
 
 dev_dependencies:
+
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
@@ -38,3 +40,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/certificate.crt
+    

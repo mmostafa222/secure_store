@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:secure_store/feature/presentation/model/view/categoryList.dart';
+import 'package:secure_store/feature/presentation/model/view/view_model/categoryList.dart';
 
 class CategoryModel {
   final String products;

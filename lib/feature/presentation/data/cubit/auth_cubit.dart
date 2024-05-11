@@ -178,4 +178,26 @@ Future<void> removeProductFromCart({required String productId}) async {
   }
 }
 
+Future<void> removeProduct({required String productId}) async {
+  // Emit loading state to notify UI that removal is in progress
+  emit(RemoveProductDataLoadingState());
+
+  try {
+    // Delete the document from the  collection based on the product ID
+    await FirebaseFirestore.instance
+        .collection('Product')
+        .doc(productId)
+        .delete()
+        .then((_) {
+      // Emit success state to notify UI that removal is successful
+      emit(RemoveProductDataSuccesState());
+      print('Product removed  successfully');
+    });
+  } catch (e) {
+    // Emit error state to notify UI that an error occurred during removal
+    emit(RemoveeProductDataErrorState(error: e.toString()));
+    print('Error removing product from : $e');
+  }
+}
+
 }

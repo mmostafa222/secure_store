@@ -39,7 +39,7 @@ class _loginViewState extends State<loginView> {
         } else if (state is LoginErrorState) {
           Navigator.pop(context);
         } else {
-          showLoadingDialog(context);
+          showLoadingDialogo(context);
         }
       },
       child: Scaffold(

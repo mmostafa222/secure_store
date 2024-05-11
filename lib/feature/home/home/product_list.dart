@@ -7,14 +7,13 @@ import 'package:secure_store/core/services/routing.dart';
 import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
 import 'package:secure_store/core/widget/custombtn.dart';
-import 'package:secure_store/feature/home/product_details.dart';
+import 'package:secure_store/feature/home/home/product_details.dart';
+
 import 'package:secure_store/feature/presentation/data/cubit/auth_cubit.dart';
 import 'package:secure_store/feature/presentation/data/cubit/auth_state.dart';
 import 'package:secure_store/feature/presentation/model/view/view_model/Product_model.dart';
+import 'package:secure_store/feature/screens/chat/ui/chat_message_screen/chat_message_screen.dart';
 
-import '../../core/services/showLoadingDialog.dart';
-import '../chat/ui/chat_message_screen/chat_message_screen.dart';
-import '../screens/favorite/favorite.dart';
 
 class productList extends StatefulWidget {
   final category;
@@ -77,7 +76,7 @@ class _productListState extends State<productList> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Stack(children: [
-                    Container(
+                    Container( width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             color: appcolors.greycolor,
                             borderRadius: BorderRadius.circular(20)),
@@ -101,23 +100,15 @@ class _productListState extends State<productList> {
                                               color: appcolors.primerycolor)),
                                       Text(product['productPrice'],
                                           style: getbodyStyle(fontSize: 11)),
-                                      // Row(
-                                      //   children: [
-                                      //     // Text(product['productDescription'],
-                                      //     //     maxLines: 2,
-                                      //     //     style: getsmallStyle(
-                                      //     //         color: Colors.white)),
-                                      //   ],
-                                      // ),
                                       Text(product['productPhone'],
                                           maxLines: 1,
-                                          style: getsmallStyle(
+                                          style: getsmallStyle(fontSize: 15,
                                               color: Colors.green))
                                     ],
                                   ),
                                 ),
                                 CustomButton(
-                                  text: 'BUY NOW',
+                                  text: 'view',
                                   onPressed: () {
                                     push(
                                         context,

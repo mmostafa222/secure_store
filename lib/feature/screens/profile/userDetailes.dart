@@ -20,9 +20,9 @@ class _UserDetailsState extends State<UserDetails> {
     user = _auth.currentUser;
   }
 
-  List labelName = ["name", "phone",  "rate", "email"];
+  List labelName = ["name", "phone",  "email"];
 
-  List value = ["name", "phone",  "rate", "email"];
+  List value = ["name", "phone",   "email"];
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor: appcolors.primerycolor,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
@@ -45,7 +45,7 @@ class _UserDetailsState extends State<UserDetails> {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        title: const Text('settings'),
+        title: const Text('settings',style: TextStyle(fontSize: 22),),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 8.0),
@@ -72,7 +72,7 @@ class _UserDetailsState extends State<UserDetails> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: InkWell(
                     splashColor: appcolors.greycolor,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                     onTap: () {
                       showDialog(
                         context: context,
@@ -86,7 +86,7 @@ class _UserDetailsState extends State<UserDetails> {
                             alignment: Alignment.center,
                             contentPadding: const EdgeInsets.all(10),
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                                borderRadius: BorderRadius.circular(15)),
                             children: [
                               Form(
                                 key: form,
@@ -94,13 +94,13 @@ class _UserDetailsState extends State<UserDetails> {
                                   children: [
                                     Text(
                                       'enter ${labelName[index]}',
-                                      style: getbodyStyle(
-                                          fontWeight: FontWeight.w600),
+                                      style: getbodyStyle(fontSize: 15,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    TextFormField(
+                                    TextFormField(style: getsmallStyle(fontSize: 15),
                                       controller: con,
                                        decoration: InputDecoration(fillColor: appcolors.greycolor,
                                           hintText: value[index]),
@@ -132,7 +132,7 @@ class _UserDetailsState extends State<UserDetails> {
                     },
                     child: Ink(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(20),
                         color: appcolors.greycolor,
                       ),
                       child: Container(
@@ -145,13 +145,13 @@ class _UserDetailsState extends State<UserDetails> {
                             Text(
                               labelName[index],
                               style: getbodyStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
+                                  fontSize: 10, fontWeight: FontWeight.w600),
                             ),
                             Text(
                               userData?[value[index]]?.isEmpty ?? true
                                   ? ''
                                   : userData?[value[index]],
-                              style: getbodyStyle(),
+                              style: getbodyStyle(fontSize: 17,color: appcolors.primerycolor),
                             ),
                           ],
                         ),

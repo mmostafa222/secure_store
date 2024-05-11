@@ -67,7 +67,7 @@ class _UpdateUserDetailsState extends State<UpdateUserDetails> {
                   margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: TextFormField(
                     controller: _textcontroller,
-                    style: getbodyStyle(),
+                    style: getbodyStyle(fontSize: 12),
                     onFieldSubmitted: (String data) {
                       _textcontroller.text = data;
                     },

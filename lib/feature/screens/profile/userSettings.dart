@@ -4,6 +4,7 @@ import 'package:secure_store/core/utils/AppColors.dart';
 import 'package:secure_store/core/utils/textstyle.dart';
 import 'package:secure_store/core/widget/settingslistItem.dart';
 import 'package:secure_store/feature/home/auth/loginView.dart';
+import 'package:secure_store/feature/screens/profile/myProducts.dart';
 import 'package:secure_store/feature/screens/profile/userDetailes.dart';
 class UserSettings extends StatefulWidget {
   const UserSettings({super.key});
@@ -33,7 +34,7 @@ class _UserSettingsState extends State<UserSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor: appcolors.primerycolor,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
@@ -64,30 +65,34 @@ class _UserSettingsState extends State<UserSettings> {
               },
             ),
             SettingsListItem(
-              icon: Icons.security_rounded,
-              text: 'password',
-              onTap: () {},
+              icon: Icons.production_quantity_limits,
+              text: 'my products',
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (contex) => const MyProducts()));},
             ),
-            SettingsListItem(
-              icon: Icons.notifications_active_rounded,
-              text: 'notifications',
-              onTap: () {},
-            ),
-            SettingsListItem(
-              icon: Icons.privacy_tip_rounded,
-              text: 'privacy',
-              onTap: () {},
-            ),
-            SettingsListItem(
-              icon: Icons.question_mark_rounded,
-              text: 'support & help',
-              onTap: () {},
-            ),
-            SettingsListItem(
-              icon: Icons.person_add_alt_1_rounded,
-              text: 'invite',
-              onTap: () {},
-            ),
+            // SettingsListItem(
+            //   icon: Icons.notifications_active_rounded,
+            //   text: 'notifications',
+            //   onTap: () {},
+            // ),
+            // SettingsListItem(
+            //   icon: Icons.privacy_tip_rounded,
+            //   text: 'privacy',
+            //   onTap: () {},
+            // ),
+            // SettingsListItem(
+            //   icon: Icons.question_mark_rounded,
+            //   text: 'support & help',
+            //   onTap: () {},
+            // ),
+            // SettingsListItem(
+            //   icon: Icons.person_add_alt_1_rounded,
+            //   text: 'invite',
+            //   onTap: () {},
+            // ),
             const Spacer(),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 5),
@@ -108,8 +113,7 @@ class _UserSettingsState extends State<UserSettings> {
                   _signOut();
                 },
                 child: Text(
-                  'تسجل خروج',
-                  style: getTitleStyle(color: appcolors.whitecolor, fontSize: 14),
+                  'Log out',                  style: getTitleStyle(color: appcolors.whitecolor, fontSize: 17),
                 ),
               ),
             ),

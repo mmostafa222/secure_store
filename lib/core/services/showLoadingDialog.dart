@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-showLoadingDialog(BuildContext context){
+showLoadingDialogo(BuildContext context){
   showDialog(
   
     context:context,
